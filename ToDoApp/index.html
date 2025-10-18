@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To‑Do</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app" aria-labelledby="app-title">
+      <header class="app__header">
+        <h1 id="app-title">Lista zadań</h1>
+        <form id="new-todo-form" autocomplete="off" aria-label="Dodaj zadanie">
+          <input id="new-todo-input" name="title" type="text" placeholder="Co masz do zrobienia?" aria-label="Treść zadania" required maxlength="200" />
+          <button type="submit" class="btn">Dodaj</button>
+        </form>
+      </header>
+
+      <section class="controls" aria-label="Filtry i akcje">
+        <div class="filters" role="tablist" aria-label="Filtruj zadania">
+          <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">Wszystkie</button>
+          <button class="filter" data-filter="active" role="tab" aria-selected="false">Aktywne</button>
+          <button class="filter" data-filter="completed" role="tab" aria-selected="false">Ukończone</button>
+        </div>
+        <div class="actions">
+          <button id="clear-completed" class="link">Usuń ukończone</button>
+        </div>
+      </section>
+
+      <section class="list" aria-live="polite">
+        <ul id="todo-list" class="todos" aria-label="Lista zadań">
+          <!-- items render here -->
+        </ul>
+      </section>
+
+      <footer class="app__footer">
+        <span id="todo-count" aria-live="polite">0 zadań</span>
+      </footer>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
+
