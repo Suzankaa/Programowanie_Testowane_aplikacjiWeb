@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wiktoria Szulc - Programistka Full Stack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #ff7ac8;
+      --purple: #7b5cff;
+      --blue: #2d8cff;
+      --text: #1f2430;
+      --muted: #5f6673;
+      --card: #ffffff;
+      --shadow: 0 10px 30px rgba(31, 36, 48, 0.12);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #eef3ff 0%, #f9edff 50%, #ffeef6 100%);
+      min-height: 100vh;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      padding: 32px 0 72px;
+    }
+
+    header {
+      padding: 48px 0 20px;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, rgba(45, 140, 255, 0.2), rgba(123, 92, 255, 0.18), rgba(255, 122, 200, 0.2));
+      border-radius: calc(var(--radius) + 6px);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 16px;
+      animation: float-in 0.8s ease-out both;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin: 0;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    main {
+      display: grid;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    section {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      font-family: "Playfair Display", Georgia, serif;
+      margin: 0 0 12px;
+      font-size: 1.6rem;
+    }
+
+    .about {
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .skills-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .skill-card {
+      padding: 18px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #ffffff, #f3f6ff);
+      border: 1px solid rgba(123, 92, 255, 0.12);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(45, 140, 255, 0.16);
+    }
+
+    .skill-card h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+    }
+
+    .skill-card span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #d9dfe8;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(123, 92, 255, 0.15);
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #ffffff;
+      background: linear-gradient(120deg, var(--blue), var(--purple), var(--pink));
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      justify-self: start;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(123, 92, 255, 0.25);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 40px;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 2px solid rgba(123, 92, 255, 0.3);
+      transition: border-color 0.2s ease;
+    }
+
+    footer a:hover {
+      border-color: var(--purple);
+    }
+
+    @keyframes float-in {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 900px) {
+      header {
+        padding-top: 64px;
+      }
+
+      main {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: start;
+      }
+
+      .full {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="hero" role="banner">
+      <h1>Wiktoria Szulc</h1>
+      <p>Programistka Full Stack</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section aria-labelledby="about-title" class="full">
+      <h2 id="about-title" class="section-title">O mnie</h2>
+      <p class="about">
+        Jestem ambitną i szybko rozwijającą się programistką full stack. Łączę analityczne
+        podejście z wyczuciem estetyki, dlatego świetnie odnajduję się zarówno w kodzie,
+        jak i w UX/UI. Lubię pracę zespołową, chętnie dzielę się wiedzą i mam doświadczenie
+        we wspieraniu stażystów. Stawiam na czytelny, skalowalny kod, a przy projektach
+        dbam o spójność interfejsu i wygodę użytkownika. Szybko adaptuję się do nowych
+        technologii i lubię dopracowywać detale.
+      </p>
+    </section>
+
+    <section aria-labelledby="skills-title">
+      <h2 id="skills-title" class="section-title">Umiejętności</h2>
+      <div class="skills-grid">
+        <article class="skill-card">
+          <h3>Angular</h3>
+          <span>Dynamiczne aplikacje webowe</span>
+        </article>
+        <article class="skill-card">
+          <h3>C#</h3>
+          <span>Backend i integracje</span>
+        </article>
+        <article class="skill-card">
+          <h3>UX/UI Design</h3>
+          <span>Projektowanie doświadczeń</span>
+        </article>
+        <article class="skill-card">
+          <h3>TypeScript</h3>
+          <span>Silne typowanie i architektura aplikacji</span>
+        </article>
+        <article class="skill-card">
+          <h3>ASP.NET Core</h3>
+          <span>API i nowoczesne backendy</span>
+        </article>
+        <article class="skill-card">
+          <h3>SQL</h3>
+          <span>Modelowanie danych i optymalizacja zapytań</span>
+        </article>
+        <article class="skill-card">
+          <h3>REST / Integracje</h3>
+          <span>Projektowanie i konsumpcja usług</span>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="contact-title">
+      <h2 id="contact-title" class="section-title">Kontakt</h2>
+      <form method="POST">
+        <div>
+          <label for="name">Imię</label>
+          <input id="name" name="name" type="text" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <div>
+          <label for="message">Wiadomość</label>
+          <textarea id="message" name="message" rows="5" placeholder="Twoja wiadomość" required></textarea>
+        </div>
+        <button type="submit">Wyślij wiadomość</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>Instagram: <a href="https://instagram.com/suzunaj" aria-label="Instagram suzunaj">suzunaj</a></p>
+  </footer>
+</body>
+</html>
