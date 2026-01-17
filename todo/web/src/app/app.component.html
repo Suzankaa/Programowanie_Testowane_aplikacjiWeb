@@ -1,0 +1,122 @@
+<div class="page">
+  <nav class="top-nav" *ngIf="currentUser">
+    <div class="nav-brand">
+      <span>Witaj, {{ currentUser.username }}</span>
+      <small>Twoje zadania sa widoczne tylko dla Ciebie.</small>
+    </div>
+    <button class="ghost" type="button" (click)="logout()">Wyloguj</button>
+  </nav>
+
+  <section class="auth-panel" *ngIf="!currentUser">
+    <div class="auth-head">
+      <h2>Proste logowanie</h2>
+      <p>Utworz konto lub zaloguj sie, aby zapisac zadania.</p>
+    </div>
+    <form class="auth-form" (ngSubmit)="submitAuth()">
+      <div class="field">
+        <label for="username">Login</label>
+        <input id="username" name="username" type="text" [(ngModel)]="authUsername" />
+      </div>
+      <div class="field">
+        <label for="password">Haslo</label>
+        <input id="password" name="password" type="password" [(ngModel)]="authPassword" />
+      </div>
+      <button class="primary" type="submit">
+        {{ authMode === 'login' ? 'Zaloguj' : 'Zarejestruj' }}
+      </button>
+      <button class="ghost" type="button" (click)="switchAuthMode(authMode === 'login' ? 'register' : 'login')">
+        {{ authMode === 'login' ? 'Chce konto' : 'Mam konto' }}
+      </button>
+    </form>
+    <div class="state error" *ngIf="authError">{{ authError }}</div>
+  </section>
+
+  <header class="hero" *ngIf="currentUser">
+    <div>
+      <p class="eyebrow">Twoja lista na dzis</p>
+      <h1>Plan dnia bez chaosu.</h1>
+      <p class="hero-copy">
+        Dodawaj zadania, ustawiaj terminy i zaznaczaj postepy. Wszystko zapisuje sie lokalnie w SQL Server.
+      </p>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-label">Otwarte</span>
+        <span class="stat-value">{{ openCount }}</span>
+      </div>
+      <div>
+        <span class="stat-label">Zrobione</span>
+        <span class="stat-value">{{ doneCount }}</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="panel" *ngIf="currentUser">
+    <form class="todo-form" (ngSubmit)="addTodo()">
+      <div class="field">
+        <label for="title">Zadanie</label>
+        <input
+          id="title"
+          name="title"
+          type="text"
+          placeholder="Np. napisac oferte do klienta"
+          [(ngModel)]="newTitle"
+        />
+      </div>
+      <div class="field">
+        <label for="dueDate">Termin</label>
+        <input id="dueDate" name="dueDate" type="date" [(ngModel)]="newDueDate" />
+      </div>
+      <button class="primary" type="submit">Dodaj</button>
+    </form>
+
+    <div class="state" *ngIf="loading">Ladowanie...</div>
+    <div class="state error" *ngIf="error">{{ error }}</div>
+
+    <div class="todo-list">
+      <article
+        class="todo-card"
+        *ngFor="let todo of todos; index as i"
+        [style.animationDelay]="(i * 60) + 'ms'"
+      >
+        <button class="check" type="button" (click)="toggleTodo(todo)" [attr.aria-pressed]="todo.isDone">
+          <span class="dot" [class.done]="todo.isDone"></span>
+        </button>
+        <div class="todo-main">
+          <h3 [class.done]="todo.isDone">{{ todo.title }}</h3>
+          <p>
+            Utworzono {{ todo.createdAt | date: 'dd.MM.yyyy' }}
+            <span *ngIf="todo.dueAt">- termin {{ todo.dueAt | date: 'dd.MM.yyyy' }}</span>
+          </p>
+        </div>
+        @if(!todo.isDone){
+          <button class="edit" type="button" (click)="editTodo(todo)">Edytuj</button>
+        }
+        <button class="ghost" type="button" (click)="deleteTodo(todo)">Usun</button>
+      </article>
+    </div>
+  </section>
+
+  <div class="modal-backdrop" *ngIf="isEditOpen">
+    <div class="modal">
+      <header>
+        <h3>Edytuj zadanie</h3>
+        <button class="ghost" type="button" (click)="closeEdit()">Zamknij</button>
+      </header>
+      <div class="modal-body">
+        <div class="field">
+          <label for="editTitle">Tytul</label>
+          <input id="editTitle" name="editTitle" type="text" [(ngModel)]="editTitle" />
+        </div>
+        <div class="field">
+          <label for="editDueDate">Termin</label>
+          <input id="editDueDate" name="editDueDate" type="date" [(ngModel)]="editDueDate" />
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="ghost" type="button" (click)="closeEdit()">Anuluj</button>
+        <button class="primary" type="button" (click)="saveEdit()">Zapisz</button>
+      </div>
+    </div>
+  </div>
+</div>
